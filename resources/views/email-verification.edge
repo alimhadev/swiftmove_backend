@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vérification de l'email</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Vérification de votre email</h2>
+    <p class="text-gray-700 mb-4">
+      Merci de vous être inscrit ! 
+    </p>
+    <p class="text-gray-700 mb-6">
+      Veuillez cliquer sur le lien dans l'email pour confirmer votre adresse.
+    </p>
+    <p class="text-gray-700 mb-6">
+      Si vous n'avez pas reçu l'email, vérifiez votre dossier spam ou
+      <a href="/resend-verification" class="text-blue-600 font-medium hover:underline">cliquez ici</a>
+      pour renvoyer l'email.
+    </p>
+    <p class="text-gray-700 mb-4">
+      Cliquez sur le lien ci-dessous pour vérifier votre adresse e-mail :
+    </p>
+    <a href="{{url}}"
+       class="inline-block bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200">
+      Vérifier mon email
+    </a>
+  </div>
+</body>
+</html>
