@@ -110,6 +110,10 @@ router.group(() => {
 
     router.post('/validate-deposit/:id', [DepositsController, 'validateDeposit'])
 
+    router.get('/deposit-file/:filename', [DepositsController, 'getFile'])
+
+
+
 //
     router.resource('withdrawals', WithdrawalsController).apiOnly()
 

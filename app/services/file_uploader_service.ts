@@ -16,7 +16,7 @@ export default class FileUploaderService {
       await thumbnail.move(app.makePath(`public/${path}`), { name: `${cuid()}.${thumbnail.extname}` });
     }
 
-    return  `${path}/${thumbnail ? thumbnail.fileName : identiconName + ".png"}`;
+    return  `${thumbnail ? thumbnail.fileName : identiconName + ".png"}`;
   }
 
 
