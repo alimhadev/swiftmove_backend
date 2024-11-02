@@ -1,6 +1,6 @@
-import { inject } from '@adonisjs/core'
+// import { inject } from '@adonisjs/core'
 import User from '#models/user'
-import FileUploaderService from '#services/file_uploader_service'
+// import FileUploaderService from '#services/file_uploader_service'
 import { loginValidation, registerValidation } from '#validators/auth'
 import type { HttpContext } from '@adonisjs/core/http'
 import { randomUUID } from 'crypto'
@@ -9,12 +9,12 @@ import mail from '@adonisjs/mail/services/main'
 import { DateTime } from 'luxon'
 
 
-@inject()
+// @inject()
 export default class AuthController {
 
-  constructor( private readonly fileUploaderService: FileUploaderService) {
+  // constructor( private readonly fileUploaderService: FileUploaderService) {
 
-  }
+  // }
 
   /**
    * Handle user registration
@@ -24,9 +24,9 @@ export default class AuthController {
    async register( {request, response}: HttpContext) {
 
     try {
-      const {firstname, lastname, email, password, avatar, solde,phoneNumber} = await request.validateUsing(registerValidation)
+      const {firstname, lastname, email, password,  solde,phoneNumber} = await request.validateUsing(registerValidation)
 
-      const filePath = await this.fileUploaderService.upload(avatar,'avatar_'.concat(firstname,lastname),'users')
+      // const filePath = await this.fileUploaderService.upload(avatar,'avatar_'.concat(firstname,lastname),'users')
 
        const verification_token = randomUUID()
 
@@ -44,7 +44,6 @@ export default class AuthController {
         lastname:lastname,
         email:email_lower,
         password:password,
-        avatar:filePath,
         solde:solde,
         phoneNumber:phoneNumber,
         emailVerificationToken : verification_token,

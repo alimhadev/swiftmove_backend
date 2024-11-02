@@ -81,7 +81,7 @@ export default class WithdrawalsController {
 
       if(netAmount > user.solde){
         return response.status(400).json({
-          message:'insufficient balance , your balance is '.concat(user.solde.toString())
+          message:"insufficient balance,don't forget withdrawal cost is 10 % , your balance is ".concat(user.solde.toString())
         })
       }
 
@@ -89,7 +89,7 @@ export default class WithdrawalsController {
    const withdrawal =  await Withdrawal.create({
         amount: playload.amount,
         method: playload.method,
-        cost: netAmount,
+        cost: fee,
         phoneNumber: user.phoneNumber
       })
 
@@ -138,8 +138,8 @@ export default class WithdrawalsController {
 
     withdrawal.isValidated=true
     await withdrawal.save()
-
-    user.solde-=withdrawal.cost!
+    const netAmount = Number(withdrawal.amount!) + Number(withdrawal.cost!)
+    user.solde-=netAmount
     user.save()
     return response.status(200).send({message: 'withdrawal validated successfully'})
 
@@ -182,38 +182,38 @@ export default class WithdrawalsController {
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request ,response,auth}: HttpContext) {
+  // async update({ params, request ,response,auth}: HttpContext) {
 
-    const playload = await request.validateUsing(withdrawalValidator)
+  //   const playload = await request.validateUsing(withdrawalValidator)
 
-    const withdrawal = await Withdrawal.find(params.id)
+  //   const withdrawal = await Withdrawal.find(params.id)
 
-    if (!withdrawal) {
-      return response.status(404).send({
-        message: 'withdrawal not found'
-      })
-    }
+  //   if (!withdrawal) {
+  //     return response.status(404).send({
+  //       message: 'withdrawal not found'
+  //     })
+  //   }
 
-    const user = await User.find(playload.userId)
+  //   const user = await User.find(playload.userId)
 
-    if (!user) {
-      return response.status(404).send({
-        message: 'user not found'
-      })
-    }
+  //   if (!user) {
+  //     return response.status(404).send({
+  //       message: 'user not found'
+  //     })
+  //   }
 
-    withdrawal.amount = playload.amount
-    withdrawal.method = playload.method
-    withdrawal.cost = playload.cost
-    withdrawal.phoneNumber = user.phoneNumber
-    withdrawal.updatedBy = auth.user!.id
-    await withdrawal.save()
+  //   withdrawal.amount = playload.amount
+  //   withdrawal.method = playload.method
+  //   withdrawal.cost = playload.cost
+  //   withdrawal.phoneNumber = user.phoneNumber
+  //   withdrawal.updatedBy = auth.user!.id
+  //   await withdrawal.save()
 
-    await withdrawal.related('user').dissociate()
-    await withdrawal.related('user').associate(user)
+  //   await withdrawal.related('user').dissociate()
+  //   await withdrawal.related('user').associate(user)
 
-    return response.status(200).send({message: 'withdrawal updated successfully'})
-  }
+  //   return response.status(200).send({message: 'withdrawal updated successfully'})
+  // }
 
   /**
    * Delete record

@@ -20,11 +20,11 @@ export const registerValidation = vine.compile(
     .minLength(8)
     .maxLength(35),
 
-    avatar: vine.file({
-      extnames: ['jpg', 'png', 'jpeg'],
-      size: '5mb'
-    })
-    .optional(),
+    // avatar: vine.file({
+    //   extnames: ['jpg', 'png', 'jpeg'],
+    //   size: '5mb'
+    // })
+    // .optional(),
 
     solde: vine.number().min(0),
 
@@ -63,11 +63,11 @@ export const updateValidation = vine.compile(
     password: vine.string()
     .minLength(8)
     .maxLength(35),
-    avatar: vine.file({
-      extnames: ['jpg', 'png', 'jpeg'],
-      size: '5mb'
-    })
-    .optional(),
+    // avatar: vine.file({
+    //   extnames: ['jpg', 'png', 'jpeg'],
+    //   size: '5mb'
+    // })
+    // .optional(),
     solde: vine.number().min(0),
     phoneNumber: vine.string().trim().minLength(8).maxLength(15).mobile().unique(async (db, value, field) => {
       const user = await db.from('users').whereNot('id', field.data.params.id).where('phoneNumber', value).first();
