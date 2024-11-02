@@ -80,6 +80,12 @@ export default class SubscribesController {
           message: 'investment_plan not found'
         })
       }
+      const uniquePlan = await Subscribe.query().where('user_id',auth.user!.id).where('investment_plan_id',playload.investmentPlanId).where('state','active').first()
+      if(uniquePlan){
+        return response.status(404).send({
+          message: 'already subscribed'
+        })
+      }
       if(user.solde < investment_plan.amount){
         return response.status(404).send({
           message: 'insufficient balance'
@@ -97,7 +103,8 @@ export default class SubscribesController {
       await subscribe.related('investmentPlan').associate(investment_plan)
       await subscribe.related('created').associate(user)
 
-      user.solde -= investment_plan.amount
+      user.solde -= Number(investment_plan.amount)
+      user.totalInvestments += Number(investment_plan.amount)
       await user.save()
 
 
@@ -106,9 +113,10 @@ export default class SubscribesController {
     }
 
     catch (error) {
-      return response.status(404).send({
-        message: 'something went wrong'
-      })
+      // return response.status(404).send({
+      //   message: 'something went wrong'
+      // })
+      throw error
     }
 
 
@@ -157,7 +165,9 @@ async totalInvestment({response,auth}: HttpContext) {
   }
 
   const subscribes = await Subscribe.query().where('user_id',auth.user!.id).preload('investmentPlan')
- let total = 0
+
+  let total = 0
+
   for (const subscribe of subscribes) {
 
     total += subscribe.investmentPlan.amount

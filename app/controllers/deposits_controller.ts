@@ -32,47 +32,7 @@ export default class DepositsController {
   /**
    * Handle form submission for the create action
    */
-  async store({ request, response ,auth}: HttpContext) {
 
-    const playload = await request.validateUsing(depositValidator)
-
-
-    const user = await User.find(playload.userId)
-
-
-
-    const user_2= await User.findOrFail(auth.user!.id)
-
-    if (!user) {
-      return response.status(404).send({
-        message: 'user not found'
-      })
-    }
-
-    if(playload.amount<700){
-      return response.status(400).send({
-        message: 'minimum amount is 700 CFA'
-      })
-    }
-
-    const files = await this.fileUploaderService.upload(playload.photo,'deposit'.concat(DateTime.now().toString()),  'deposits')
-
-    const deposit = await Deposit.create({
-      amount: playload.amount,
-      method: playload.method,
-      photo: files
-
-    })
-
-
-    await deposit.related('user').associate(user)
-    await deposit.related('created').associate(user_2)
-
-
-
-    return response.status(200).send({message: 'deposit created successfully'})
-    // user.related('deposits').save(deposit)
-  }
 
   async depositForUser({response,auth,request}: HttpContext) {
 
@@ -86,11 +46,12 @@ export default class DepositsController {
         message: 'minimum amount is 700 CFA'
       })
     }
-
+    const files = await this.fileUploaderService.upload(playload.photo,'deposit'.concat(DateTime.now().toString()),  'deposits')
 
     const deposit = await Deposit.create({
       amount: playload.amount,
-      method: playload.method
+      method: playload.method,
+      photo: files
     })
 
 
@@ -137,7 +98,7 @@ export default class DepositsController {
     deposit.isValidated=true
     await deposit.save()
 
-    user.solde+=deposit.amount
+    user.solde+=Number(deposit.amount)
     user.save()
 
     return response.status(200).send({message: 'deposit validated successfully'})

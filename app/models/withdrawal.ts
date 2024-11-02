@@ -18,7 +18,7 @@ export default class Withdrawal extends BaseModel {
   declare cost: number | null
 
   @column()
-  declare isValitated: boolean
+  declare isValidated: boolean
 
   @column()
   declare userId : number

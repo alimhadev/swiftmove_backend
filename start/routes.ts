@@ -83,7 +83,7 @@ router.group(() => {
 //
     router.resource('subscribes', SubscribesController).apiOnly()
 
-    router.get('/subscribtion-for-user', [SubscribesController, 'subscribtionForUser'])
+    router.post('/subscribtion-for-user', [SubscribesController, 'subscribtionForUser'])
 
     router.get('/user-plans', [SubscribesController, 'UserSubscribtion'])
 
@@ -108,7 +108,7 @@ router.group(() => {
 
     router.get('/deposits-by-user', [DepositsController, 'depositByUser'])
 
-    router.post('/validate-deposit', [DepositsController, 'validateDeposit'])
+    router.post('/validate-deposit/:id', [DepositsController, 'validateDeposit'])
 
 //
     router.resource('withdrawals', WithdrawalsController).apiOnly()
@@ -119,7 +119,7 @@ router.group(() => {
 
     router.get('/withdrawals-by-user', [WithdrawalsController, 'withdrawalByUser'])
 
-    router.post('/validate-withdrawal', [WithdrawalsController, 'validateWithdrawal'])
+    router.post('/validate-withdrawal/:id', [WithdrawalsController, 'validateWithdrawal'])
 
 
   }).use(middleware.auth())

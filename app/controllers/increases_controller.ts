@@ -1,6 +1,6 @@
 import Increase from '#models/increase'
 import Subscribe from '#models/subscribe'
-import User from '#models/user'
+
 import { increaseValidator } from '#validators/increase'
 import type { HttpContext } from '@adonisjs/core/http'
 
@@ -22,33 +22,33 @@ export default class IncreasesController {
   /**
    * Handle form submission for the create action
    */
-  async store({ request, response ,auth}: HttpContext) {
+  // async store({ request, response ,auth}: HttpContext) {
 
-    const playload = await request.validateUsing(increaseValidator)
+  //   const playload = await request.validateUsing(increaseValidator)
 
-    const subscribe = await Subscribe.find(playload.subscribeId)
+  //   const subscribe = await Subscribe.find(playload.subscribeId)
 
-    const user = await User.findOrFail(auth.user!.id)
+  //   const user = await User.findOrFail(auth.user!.id)
 
-    if (!subscribe) {
-      return response.status(404).send({
-        message: 'subscribe not found'
-      })
-    }
+  //   if (!subscribe) {
+  //     return response.status(404).send({
+  //       message: 'subscribe not found'
+  //     })
+  //   }
 
-    const increase = await Increase.create({
+  //   const increase = await Increase.create({
 
-      amount: playload.amount,
-    })
+  //     amount: playload.amount,
+  //   })
 
-    await increase.related('subscribe').associate(subscribe)
+  //   await increase.related('subscribe').associate(subscribe)
 
-    await increase.related('created').associate(user)
+  //   await increase.related('created').associate(user)
 
-    return response.status(200).send({message: 'increase created successfully'})
+  //   return response.status(200).send({message: 'increase created successfully'})
 
 
-  }
+  // }
 
   /**
    * Show individual record
