@@ -10,9 +10,7 @@ export default class extends BaseSchema {
   }
 
   async down() {
-    this.schema.alterTable(this.tableName, (table) => {
-      table.timestamp('subscription_date_time', { useTz: true }).notNullable()
-    })
+
   }
 
 }

@@ -25,7 +25,7 @@ export default class Gain extends BaseCommand {
 
 
 
-        const gainAmount = subscribe.investmentPlan.amount * percentageByDay
+        const gainAmount = Number(subscribe.investmentPlan.amount) * percentageByDay
 
 
         subscribe.fakeMonths-=1
@@ -38,7 +38,7 @@ export default class Gain extends BaseCommand {
 
             subscribe.leftDays -=1
 
-            subscribe.user.solde += gainAmount
+            subscribe.user.solde += Number(gainAmount)
 
             const increase = await Increase.create({ amount: gainAmount })
 

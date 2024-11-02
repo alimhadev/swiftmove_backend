@@ -16,7 +16,7 @@ export default class WithdrawalsController {
       query.select('id','firstname','lastname')
     })
 
-    return response.status(200).send(withdrawals)
+    return response.send(withdrawals)
   }
 
 
@@ -136,7 +136,7 @@ export default class WithdrawalsController {
       })
     }
 
-    withdrawal.isValitated=true
+    withdrawal.isValidated=true
     await withdrawal.save()
 
     user.solde-=withdrawal.cost!
@@ -147,7 +147,7 @@ export default class WithdrawalsController {
 
   async withdrawalByUser({response,auth}: HttpContext) {
 
-    const withdrawals = await Withdrawal.query().where('user_id',auth.user!.id).orderBy('createdAt', 'desc').preload('user')
+    const withdrawals = await Withdrawal.query().where('user_id',auth.user!.id).orderBy('createdAt', 'desc')
 
     return response.status(200).send(withdrawals)
 

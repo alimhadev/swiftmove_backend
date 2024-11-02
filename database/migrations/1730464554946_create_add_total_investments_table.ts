@@ -5,7 +5,7 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.alterTable(this.tableName, (table) => {
-      table.double('total_investments').nullable()
+      table.double('total_investments').defaultTo(0)
     })
   }
 
