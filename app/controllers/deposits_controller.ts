@@ -111,6 +111,18 @@ export default class DepositsController {
     return response.status(200).send(deposits)
 
   }
+
+  async getFile({params,response}: HttpContext) {
+
+
+    const filename = params.filename
+
+    const path = `public/deposits/${filename}`
+
+    response.header('Content-Type', 'image/jpg/png/jpeg',)
+    
+    return response.download(path)
+  }
   /**
    * Show individual record
    */
