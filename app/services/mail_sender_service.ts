@@ -5,6 +5,7 @@
 // import { MultipartFile } from '@adonisjs/core/bodyparser';
 
 import User from "#models/user";
+import Env  from '#start/env'
 
 
 import mail from "@adonisjs/mail/services/main";
@@ -18,9 +19,11 @@ export default class MailsSenderService {
   async sentVerifyMail( email:string,user:User){
 
 
-      const verification_token = randomUUID()
+       const verification_token = randomUUID()
 
-       const url = `http://localhost:3000/confirm-email?confirmation_token=${verification_token}`
+       const  frontUrl =Env.get('FRONT_URL')
+
+       const url = `${frontUrl}/confirm-email?confirmation_token=${verification_token}`
 
         // const url = `http://localhost:3333/api/v1/verify-email?token=${verification_token}`
 

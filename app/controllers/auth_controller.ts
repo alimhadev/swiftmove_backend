@@ -7,6 +7,7 @@ import { randomUUID } from 'crypto'
 // import stringHelpers from '@adonisjs/core/helpers/string'
 import mail from '@adonisjs/mail/services/main'
 import { DateTime } from 'luxon'
+import  Env  from '#start/env'
 
 
 // @inject()
@@ -32,7 +33,9 @@ export default class AuthController {
 
       //const verification_token = stringHelpers.generateRandom(64)
 
-        const url = `http://localhost:3000/confirm-email?confirmation_token=${verification_token}`
+      const  frontUrl =Env.get('FRONT_URL')
+
+      const url = `${frontUrl}/confirm-email?confirmation_token=${verification_token}`
 
 
           // const url = `http://localhost:3333/api/v1/verify-email?token=${verification_token}`
