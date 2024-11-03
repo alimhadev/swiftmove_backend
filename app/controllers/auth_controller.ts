@@ -8,7 +8,7 @@ import { randomUUID } from 'crypto'
 import mail from '@adonisjs/mail/services/main'
 import { DateTime } from 'luxon'
 import  Env  from '#start/env'
-import db from '@adonisjs/lucid/services/db'
+// import db from '@adonisjs/lucid/services/db'
 
 
 
@@ -118,6 +118,7 @@ export default class AuthController {
   async logout({auth,response}:HttpContext) {
 
     const user = auth.getUserOrFail()
+
      const token = user.currentAccessToken.identifier
 
      if(!token) {
@@ -130,22 +131,12 @@ export default class AuthController {
 
   }
 
-  async userByToken({response,params}:HttpContext) {
-    const token = params.token
+  async currentUser({response, auth}:HttpContext) {
 
-    const user_id = await db.from('auth_access_tokens').select('tokenable_id').where('hash',token).first()
-
-    const user = await User.find(user_id.tokenable_id)
-
-    if(!user) {
-
-      return response.status(404).send({
-        message: 'user not found'
-      })
-
-    }
+    const user = auth.getUserOrFail()
 
     return response.status(200).send(user)
+
 
   }
 

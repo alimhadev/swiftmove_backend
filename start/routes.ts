@@ -66,7 +66,7 @@ router.group(() => {
   router.post('/reset-password', [ResetPasswordsController, 'handleResetPassword'])
   router.post('/verification-by-email', [AccountVerifsController, 'verificationByMail'])
   router.get('/verify-token', [AccountVerifsController, 'verifyToken'])
-  router.get('user-by-token/:token', [AuthController, 'userByToken'])
+
 
 
 
@@ -148,6 +148,8 @@ router.group(() => {
     router.get('reactivations-list-by-user', [ReactivationsController, 'reactivationListByUser'])
 
     router.post('/reactivation-for-user', [ReactivationsController, 'store'])
+
+    router.get('/current-user', [AuthController, 'currentUser'])
 
   }).use(middleware.auth())
 
