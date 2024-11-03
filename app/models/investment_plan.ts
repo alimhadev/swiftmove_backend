@@ -4,8 +4,10 @@ import Subscribe from '#models/subscribe'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Vehicle from '#models/vehicle'
 import User from '#models/user'
+import { compose } from '@adonisjs/core/helpers'
+import { SoftDeletes } from 'adonis-lucid-soft-deletes'
 
-export default class InvestmentPlan extends BaseModel {
+export default class InvestmentPlan extends compose(BaseModel, SoftDeletes) {
   @column({ isPrimary: true })
   declare id: number
 
@@ -42,6 +44,8 @@ export default class InvestmentPlan extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
+  @column.dateTime({ columnName: 'deletedAt' })
+  declare deletedAt: DateTime | null
   // relatoinship
 
   @hasMany(() => Subscribe)

@@ -40,6 +40,9 @@ export default class Deposit extends compose(BaseModel, SoftDeletes) {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
+  @column.dateTime({ columnName: 'deletedAt' })
+  declare deletedAt: DateTime | null
+
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 

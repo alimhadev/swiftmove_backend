@@ -16,8 +16,6 @@ export default class SubscribesController {
       query.select('id','firstname','lastname')
     })
 
-
-
     return response.status(200).send(subscribes)
   }
 
@@ -174,8 +172,7 @@ async totalInvestment({response,auth}: HttpContext) {
 
   for (const subscribe of subscribes) {
 
-    total += subscribe.investmentPlan.amount
-
+    total += Number(subscribe.investmentPlan.amount)
   }
   return response.status(200).send({
 
@@ -213,6 +210,7 @@ async totalInvestment({response,auth}: HttpContext) {
    * Handle form submission for the edit action
    */
   async update({ params, request,response,auth }: HttpContext) {
+
      const playload = await request.validateUsing(subscribeValidator)
 
     const subscribe = await Subscribe.find(params.id)
