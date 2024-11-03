@@ -3,8 +3,10 @@ import User from '#models/user'
 import { DateTime } from 'luxon'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { column, BaseModel, belongsTo } from '@adonisjs/lucid/orm'
+import { compose } from '@adonisjs/core/helpers'
+import { SoftDeletes } from 'adonis-lucid-soft-deletes'
 
-export default class Deposit extends BaseModel {
+export default class Deposit extends compose(BaseModel, SoftDeletes) {
   @column({ isPrimary: true })
   declare id: number
 
