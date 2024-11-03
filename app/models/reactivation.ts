@@ -3,8 +3,10 @@ import User  from '#models/user';
 import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import  type { BelongsTo } from '@adonisjs/lucid/types/relations';
+import { compose } from '@adonisjs/core/helpers'
+import { SoftDeletes } from 'adonis-lucid-soft-deletes'
 
-export default class Reactivation extends BaseModel {
+export default class Reactivation extends compose(BaseModel, SoftDeletes) {
   @column({ isPrimary: true })
   declare id: number
 
@@ -22,6 +24,9 @@ export default class Reactivation extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @column.dateTime({ columnName: 'deletedAt' })
+  declare deletedAt: DateTime | null
 
   @belongsTo(() => Subscribe)
   declare subscribe: BelongsTo<typeof Subscribe>

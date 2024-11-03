@@ -3,8 +3,10 @@ import { BaseModel, column,belongsTo } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Subscribe from '#models/subscribe'
 import User from '#models/user'
+import { compose } from '@adonisjs/core/helpers'
+import { SoftDeletes } from 'adonis-lucid-soft-deletes'
 
-export default class Increase extends BaseModel {
+export default class Increase extends compose(BaseModel, SoftDeletes) {
   @column({ isPrimary: true })
   declare id: number
 
@@ -23,6 +25,9 @@ export default class Increase extends BaseModel {
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
+  @column.dateTime({ columnName: 'deletedAt' })
+  declare deletedAt: DateTime | null
+  
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 

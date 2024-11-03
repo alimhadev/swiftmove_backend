@@ -5,8 +5,10 @@ import { BaseModel, column, belongsTo,hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import InvestmentPlan from '#models/investment_plan'
 import Reactivation from '#models/reactivation'
+import { compose } from '@adonisjs/core/helpers'
+import { SoftDeletes } from 'adonis-lucid-soft-deletes'
 
-export default class Subscribe extends BaseModel {
+export default class Subscribe extends compose(BaseModel, SoftDeletes) {
   @column({ isPrimary: true })
   declare id: number
 
@@ -18,6 +20,9 @@ export default class Subscribe extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @column.dateTime({ columnName: 'deletedAt' })
+  declare deletedAt: DateTime | null
 
   @column.dateTime({ autoCreate: false, autoUpdate: false })
   declare lastActivity: DateTime | null

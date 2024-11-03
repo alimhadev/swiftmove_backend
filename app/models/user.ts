@@ -14,6 +14,7 @@ import Vehicle from '#models/vehicle'
 import InvestmentPlan from '#models/investment_plan'
 import Reactivation from '#models/reactivation'
 import Increase from '#models/increase'
+import { SoftDeletes } from 'adonis-lucid-soft-deletes'
 
 
 
@@ -22,7 +23,7 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   passwordColumnName: 'password',
 })
 
-export default class User extends compose(BaseModel, AuthFinder) {
+export default class User extends compose(BaseModel, AuthFinder, SoftDeletes) {
   @column({ isPrimary: true })
   declare id: number
 
@@ -63,7 +64,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare isAdmin: boolean
 
   @column()
-  declare totalInvestments: number 
+  declare totalInvestments: number
 
   @column.dateTime()
   declare tokenExpiresAt: DateTime
@@ -73,6 +74,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+
+  @column.dateTime()
+  declare deletedAt: DateTime | null
 
   static accessTokens = DbAccessTokensProvider.forModel(User,{
     expiresIn: '30 days',

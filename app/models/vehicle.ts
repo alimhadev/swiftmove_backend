@@ -3,31 +3,12 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import User from '#models/user';
-/**
- * @swagger
- * components:
- *  schemas:
- *    Vehicle:
- *      type: object
- *      properties:
- *        id:
- *          type: integer
- *        name:
- *          type: string
- *        created_at:
- *          type: datetime
- *        updated_at:
- *          type: datetime
- *        created_by:
- *          type: integer
- *        updated_by:
- *          type: integer
- *        investment_plans:
- *          type: array
- * 
- */
+import { compose } from '@adonisjs/core/helpers'
+import { SoftDeletes } from 'adonis-lucid-soft-deletes'
 
-export default class Vehicle extends BaseModel {
+
+export default class Vehicle extends compose(BaseModel, SoftDeletes) {
+
   @column({ isPrimary: true })
   declare id: number
 
@@ -45,6 +26,9 @@ export default class Vehicle extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @column.dateTime()
+  declare deletedAt: DateTime | null
 
   @hasMany(() => InvestmentPlan)
   declare investmentPlans: HasMany<typeof InvestmentPlan>
