@@ -58,6 +58,7 @@
     "@adonisjs/lucid": "^21.3.0",
     "@adonisjs/mail": "^9.2.2",
     "@vinejs/vine": "^2.1.0",
+    "adonis-lucid-soft-deletes": "^2.1.0",
     "adonisjs-scheduler": "^1.0.5",
     "edge.js": "^6.2.0",
     "jdenticon": "^3.3.0",
