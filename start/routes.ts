@@ -24,7 +24,7 @@ const WithdrawalsController= () =>import('#controllers/withdrawals_controller')
 
 
 import router from '@adonisjs/core/services/router'
-import { middleware } from './kernel.js'
+import { middleware} from './kernel.js'
 // import AutoSwagger from "adonis-autoswagger";
 // import swagger from "#config/swagger";
 
@@ -66,6 +66,7 @@ router.group(() => {
   router.post('/reset-password', [ResetPasswordsController, 'handleResetPassword'])
   router.post('/verification-by-email', [AccountVerifsController, 'verificationByMail'])
   router.get('/verify-token', [AccountVerifsController, 'verifyToken'])
+  router.get('user-by-token/:token', [AuthController, 'userByToken'])
 
 
 
@@ -85,7 +86,7 @@ router.group(() => {
 
     router.post('/subscribtion-for-user', [SubscribesController, 'subscribtionForUser'])
 
-    router.get('/user-plans', [SubscribesController, 'UserSubscribtion'])
+    router.get('/user-subscribtion-plans', [SubscribesController, 'UserSubscribtion'])
 
     router.get('/user-increases', [SubscribesController, 'userIncrease'])
 
@@ -102,11 +103,7 @@ router.group(() => {
 
     router.resource('deposits', DepositsController).apiOnly()
 
-    router.post('/deposit-for-user', [DepositsController, 'depositForUser'])
-
     router.get('/deposits-request-list', [DepositsController, 'depositRequestList'])
-
-    router.get('/deposits-by-user', [DepositsController, 'depositByUser'])
 
     router.post('/validate-deposit/:id', [DepositsController, 'validateDeposit'])
 
@@ -117,17 +114,41 @@ router.group(() => {
 //
     router.resource('withdrawals', WithdrawalsController).apiOnly()
 
-    router.post('/withdrawal-for-user',[WithdrawalsController,'withDrawalsForUser'])
+
 
     router.get('/withdrawals-request-list', [WithdrawalsController, 'withdrawalsRequestList'])
 
-    router.get('/withdrawals-by-user', [WithdrawalsController, 'withdrawalByUser'])
+
 
     router.post('/validate-withdrawal/:id', [WithdrawalsController, 'validateWithdrawal'])
 
 
+  }).use([middleware.auth(), middleware.userRole()])
+
+
+
+
+
+
+
+
+
+
+
+  router.group(() => {
+
+    router.post('/deposit-for-user', [DepositsController, 'depositForUser'])
+
+    router.get('/deposits-by-user', [DepositsController, 'depositByUser'])
+
+    router.post('/withdrawal-for-user',[WithdrawalsController,'withDrawalsForUser'])
+
+    router.get('/withdrawals-by-user', [WithdrawalsController, 'withdrawalByUser'])
+
+    router.get('reactivations-list-by-user', [ReactivationsController, 'reactivationListByUser'])
+
+    router.post('/reactivation-for-user', [ReactivationsController, 'store'])
+
   }).use(middleware.auth())
-
-
 
 }).prefix('/api/v1')

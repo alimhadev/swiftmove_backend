@@ -3,6 +3,7 @@ import Subscribe from '#models/subscribe'
 import User from '#models/user'
 import { subscribeValidator, subscribeByUserValidator } from '#validators/subscribe'
 import type { HttpContext } from '@adonisjs/core/http'
+import { DateTime } from 'luxon'
 
 export default class SubscribesController {
   /**
@@ -95,7 +96,9 @@ export default class SubscribesController {
 
       const subscribe = await Subscribe.create({
         state:'active',
-        leftDays:investment_plan.durationInDay
+        leftDays:investment_plan.durationInDay,
+        lastActivity:DateTime.now(),
+
       })
 
 
@@ -105,6 +108,7 @@ export default class SubscribesController {
 
       user.solde -= Number(investment_plan.amount)
       user.totalInvestments += Number(investment_plan.amount)
+
       await user.save()
 
 

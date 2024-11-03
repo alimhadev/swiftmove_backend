@@ -8,6 +8,9 @@ import { randomUUID } from 'crypto'
 import mail from '@adonisjs/mail/services/main'
 import { DateTime } from 'luxon'
 import  Env  from '#start/env'
+import db from '@adonisjs/lucid/services/db'
+
+
 
 
 // @inject()
@@ -126,6 +129,28 @@ export default class AuthController {
     return response.ok({ message: 'Logged out' })
 
   }
+
+  async userByToken({response,params}:HttpContext) {
+    const token = params.token
+
+    const user_id = await db.from('auth_access_tokens').select('tokenable_id').where('hash',token).first()
+
+    const user = await User.find(user_id.tokenable_id)
+
+    if(!user) {
+
+      return response.status(404).send({
+        message: 'user not found'
+      })
+
+    }
+
+    return response.status(200).send(user)
+
+  }
+
+
+
 
 
 

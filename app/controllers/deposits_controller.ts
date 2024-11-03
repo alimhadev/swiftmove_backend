@@ -106,7 +106,7 @@ export default class DepositsController {
 
   async depositByUser({response,auth}: HttpContext) {
 
-    const deposits = await Deposit.query().where('user_id',auth.user!.id).orderBy('createdAt', 'desc').preload('user')
+    const deposits = await Deposit.query().where('user_id',auth.user!.id).orderBy('createdAt', 'desc')
 
     return response.status(200).send(deposits)
 
@@ -120,7 +120,7 @@ export default class DepositsController {
     const path = `public/deposits/${filename}`
 
     response.header('Content-Type', 'image/jpg/png/jpeg',)
-    
+
     return response.download(path)
   }
   /**
