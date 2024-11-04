@@ -166,7 +166,7 @@ async totalInvestment({response,auth}: HttpContext) {
     })
   }
 
-  const subscribes = await Subscribe.query().where('user_id',auth.user!.id).preload('investmentPlan')
+  const subscribes = await Subscribe.query().preload('investmentPlan')
 
   let total = 0
 
@@ -176,7 +176,7 @@ async totalInvestment({response,auth}: HttpContext) {
   }
   return response.status(200).send({
 
-    "total-investment":total})
+    "totalInvestments":total})
 
 }
   /**

@@ -25,9 +25,10 @@ export default class Increase extends compose(BaseModel, SoftDeletes) {
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
-  @column.dateTime({ columnName: 'deletedAt' })
+
+  @column.dateTime()
   declare deletedAt: DateTime | null
-  
+
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
