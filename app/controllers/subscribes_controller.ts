@@ -176,7 +176,7 @@ async totalInvestment({response,auth}: HttpContext) {
   }
   return response.status(200).send({
 
-    "totalInvestment":total})
+    "totalInvestments":total})
 
 }
   /**
