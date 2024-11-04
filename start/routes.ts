@@ -61,7 +61,7 @@ router.group(() => {
 
   router.post('/login', [AuthController, 'login'])
   router.post('/register', [AuthController, 'register'])
-  router.post('/logout', [AuthController, 'logout'])
+
   router.post('/forgot-password', [ResetPasswordsController, 'handleForgotPassword'])
   router.post('/reset-password', [ResetPasswordsController, 'handleResetPassword'])
   router.post('/verification-by-email', [AccountVerifsController, 'verificationByMail'])
@@ -157,6 +157,8 @@ router.group(() => {
     router.get('/user-subscribtion-plans', [SubscribesController, 'UserSubscribtion'])
 
     router.get('/user-increases', [SubscribesController, 'userIncrease'])
+    
+    router.post('/logout', [AuthController, 'logout'])
 
 
   }).use(middleware.auth())
