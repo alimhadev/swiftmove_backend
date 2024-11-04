@@ -78,17 +78,18 @@ router.group(() => {
 
     router.get('/close-inactive-account', [UsersController, 'closeInactiveAccount'])
 
-    router.resource('investment_plans', InvestmentPlansController).apiOnly()
+    router.post('/investment_plans', [InvestmentPlansController, 'store'])
+
+    router.put('/investment_plans/:id', [InvestmentPlansController, 'update'])
+
+    router.delete('/investment_plans/:id', [InvestmentPlansController, 'destroy'])
+
 
 
 //
     router.resource('subscribes', SubscribesController).apiOnly()
 
     router.post('/subscribtion-for-user', [SubscribesController, 'subscribtionForUser'])
-
-    router.get('/user-subscribtion-plans', [SubscribesController, 'UserSubscribtion'])
-
-    router.get('/user-increases', [SubscribesController, 'userIncrease'])
 
     router.get('/total-investment', [SubscribesController, 'totalInvestment'])
 
@@ -150,6 +151,13 @@ router.group(() => {
     router.post('/reactivation-for-user', [ReactivationsController, 'store'])
 
     router.get('/current-user', [AuthController, 'currentUser'])
+
+    router.get('/investment_plans', [InvestmentPlansController, 'index'])
+
+    router.get('/user-subscribtion-plans', [SubscribesController, 'UserSubscribtion'])
+
+    router.get('/user-increases', [SubscribesController, 'userIncrease'])
+
 
   }).use(middleware.auth())
 
