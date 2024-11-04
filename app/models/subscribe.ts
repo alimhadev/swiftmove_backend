@@ -21,7 +21,8 @@ export default class Subscribe extends compose(BaseModel, SoftDeletes) {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @column.dateTime({ columnName: 'deletedAt' })
+
+  @column.dateTime()
   declare deletedAt: DateTime | null
 
   @column.dateTime({ autoCreate: false, autoUpdate: false })
