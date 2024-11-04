@@ -44,7 +44,8 @@ export default class InvestmentPlan extends compose(BaseModel, SoftDeletes) {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @column.dateTime({ columnName: 'deletedAt' })
+
+  @column.dateTime()
   declare deletedAt: DateTime | null
   // relatoinship
 
