@@ -55,9 +55,6 @@ export default class User extends compose(BaseModel, AuthFinder, SoftDeletes) {
   declare solde: number
 
   @column()
-  declare phoneNumber: string | null
-
-  @column()
   declare isVerified: boolean
 
   @column()
