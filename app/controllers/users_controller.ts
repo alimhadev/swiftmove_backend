@@ -25,7 +25,7 @@ export default class UsersController {
 
   async store({ request, response,auth }: HttpContext) {
 
-    const {firstname, lastname, email, password, solde,phoneNumber} = await request.validateUsing(registerValidation)
+    const {firstname, lastname, email, password} = await request.validateUsing(registerValidation)
 
     const user = await User.findOrFail(auth.user!.id)
 
@@ -35,8 +35,7 @@ export default class UsersController {
       email:email.toLowerCase(),
       password:password,
       // avatar:avatar,
-      solde:solde,
-      phoneNumber:phoneNumber,
+
 
 
     })
@@ -96,16 +95,14 @@ export default class UsersController {
         message: 'user not found'})
     }
 
-    const {firstname, lastname, email, password, solde,phoneNumber} = await request.validateUsing(updateValidation)
+    const {firstname, lastname, email, password} = await request.validateUsing(updateValidation)
 
     user.firstname = firstname
     user.lastname = lastname
     user.email = email
     user.password = password
     // user.avatar = avatar
-    user.solde = solde
-
-    user.phoneNumber = phoneNumber
+  
 
     user.updatedBy = auth.user!.id
 

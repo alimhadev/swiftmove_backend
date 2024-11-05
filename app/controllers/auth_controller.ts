@@ -28,7 +28,7 @@ export default class AuthController {
    async register( {request, response}: HttpContext) {
 
     try {
-      const {firstname, lastname, email, password,  solde,phoneNumber} = await request.validateUsing(registerValidation)
+      const {firstname, lastname, email, password} = await request.validateUsing(registerValidation)
 
       // const filePath = await this.fileUploaderService.upload(avatar,'avatar_'.concat(firstname,lastname),'users')
 
@@ -50,8 +50,6 @@ export default class AuthController {
         lastname:lastname,
         email:email_lower,
         password:password,
-        solde:solde,
-        phoneNumber:phoneNumber,
         emailVerificationToken : verification_token,
         tokenExpiresAt:DateTime.now().plus({minutes: 20})
       })
