@@ -52,7 +52,7 @@ export default class WithdrawalsController {
       amount: playload.amount,
       method: playload.method,
       cost: netAmount,
-      phoneNumber: user.phoneNumber
+      phoneNumber: playload.phoneNumber
     })
 
 
@@ -90,7 +90,7 @@ export default class WithdrawalsController {
         amount: playload.amount,
         method: playload.method,
         cost: fee,
-        phoneNumber: user.phoneNumber
+        phoneNumber: playload.phoneNumber
       })
 
 
