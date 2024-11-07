@@ -9,7 +9,7 @@ export default class UsersController {
    */
   async index({response}: HttpContext) {
 
-    const users = await User.query().orderBy('createdAt', 'desc').preload('created',(query) =>{
+    const users = await User.query().where('isAdmin',false).andWhere('isSuperAdmin',false).orderBy('createdAt', 'desc').preload('created',(query) =>{
       query.select('id','firstname','lastname')
     }).preload('updated',(query) =>{
       query.select('id','firstname','lastname')
@@ -102,7 +102,7 @@ export default class UsersController {
     user.email = email
     user.password = password
     // user.avatar = avatar
-  
+
 
     user.updatedBy = auth.user!.id
 
@@ -129,6 +129,44 @@ export default class UsersController {
       message: 'user deleted successfully',
     })
   }
+
+  async setAdmin({ params, response }: HttpContext) {
+    const user = await User.findOrFail(params.id)
+
+    if (!user) {
+      return response.status(404).send({
+        message: 'user not found'})
+    }
+
+    if (user.isAdmin === false) {
+      user.isAdmin = true
+    } else {
+      user.isAdmin = false
+    }
+
+    await user.save()
+
+    return response.status(200).send({
+      message: 'user updated successfully',
+    })
+
+    }
+
+
+
+      async adminList({ response }: HttpContext) {
+
+        const users = await User.query().where('isAdmin',true).orderBy('createdAt', 'desc').preload('created',(query) =>{
+          query.select('id','firstname','lastname')
+        }).preload('updated',(query) =>{
+          query.select('id','firstname','lastname')
+        })
+
+        return response.status(200).send(users)
+
+      }
+
+
 
 
 }
