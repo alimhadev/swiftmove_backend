@@ -128,6 +128,18 @@ router.group(() => {
 
 
 
+  router.group(() => {
+
+    router.get('/users-list', [UsersController, 'index'])
+
+    router.get('/admins-list', [UsersController, 'adminList'])
+
+    router.post('/set-admin/:id', [UsersController, 'setAdmin'])
+
+
+
+  }).use([middleware.auth(), middleware.superAdminRole()])
+
 
 
 
@@ -157,7 +169,7 @@ router.group(() => {
     router.get('/user-subscribtion-plans', [SubscribesController, 'UserSubscribtion'])
 
     router.get('/user-increases', [SubscribesController, 'userIncrease'])
-    
+
     router.post('/logout', [AuthController, 'logout'])
 
 

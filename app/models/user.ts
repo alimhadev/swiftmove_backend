@@ -61,6 +61,9 @@ export default class User extends compose(BaseModel, AuthFinder, SoftDeletes) {
   declare isAdmin: boolean
 
   @column()
+  declare isSuperAdmin: boolean
+
+  @column()
   declare totalInvestments: number
 
   @column.dateTime()
