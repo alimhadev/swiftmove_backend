@@ -3,10 +3,11 @@ import type { NextFn } from '@adonisjs/core/types/http'
 
 export default class UserRoleMiddleware {
   async handle(ctx: HttpContext, next: NextFn) {
+    console.log('UserRoleMiddleware', ctx.auth.user)
 
     const user = ctx.auth.user
 
-    if (!user  || user.isAdmin) {
+    if (!user || user.isAdmin == false) {
       return ctx.response.status(403).send({ message: 'Unauthorized access' })
     }
     const output = await next()
