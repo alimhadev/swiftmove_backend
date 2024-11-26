@@ -66,6 +66,7 @@ router.group(() => {
   router.post('/forgot-password', [ResetPasswordsController, 'handleForgotPassword'])
   router.post('/reset-password', [ResetPasswordsController, 'handleResetPassword'])
   router.post('/verification-by-email', [AccountVerifsController, 'verificationByMail'])
+  router.post('/resend-verification-email', [AccountVerifsController, 'resendVerificationEmail'])
   router.get('/verify-token', [AccountVerifsController, 'verifyToken'])
 
   // Only admin routes
