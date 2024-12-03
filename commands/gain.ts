@@ -12,6 +12,8 @@ export default class Gain extends BaseCommand {
 
   async run() {
     try {
+
+      console.log(" je reçois le gain")
       // subscriptions
 
       const subscrition = await Subscribe.query().where('state', 'active').andWhere('lastActivity', '<', DateTime.now().minus({ days: 30 }).toJSDate()).preload('user').preload('investmentPlan')

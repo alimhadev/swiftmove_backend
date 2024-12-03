@@ -15,7 +15,7 @@ export default class InnactiveAccount extends BaseCommand {
 
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
 
-    const inactiveUsers = await User.query().where('solde', 0).andWhere('createdAt', '<', oneWeekAgo)
+    const inactiveUsers = await User.query().where('solde', 0).andWhere('isAdmin','false').andWhere('isSuperAdmin','false').andWhere('createdAt', '<', oneWeekAgo)
 
     await User.query().whereIn('id', inactiveUsers.map((user: { id: any }) => user.id)).delete()
 
