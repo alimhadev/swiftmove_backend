@@ -14,6 +14,7 @@ export const InvestmentPlanFactory = factory
       durationInMonth: faker.number.int({ min: 0, max: 100 }),
       durationInDay: faker.number.int({ min: 0, max: 100 }),
       minimumWithdrawalAmount: faker.number.int({ min: 0, max: 100 }),
+      vehicleId:faker.number.int({min:1,max:10})
 
     }
   })

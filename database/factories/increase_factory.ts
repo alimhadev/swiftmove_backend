@@ -5,6 +5,7 @@ export const IncreaseFactory = factory
   .define(Increase, async ({ faker }) => {
     return {
       amount: faker.number.int({ min: 0, max: 10000 }),
+      subscribeId:faker.number.int({min:1, max:8})
     }
   })
   .build()

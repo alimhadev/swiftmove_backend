@@ -8,7 +8,9 @@ export const WithdrawalFactory = factory
       method: faker.word.sample(),
       cost: faker.number.int({ min: 0, max: 10000 }),
       isValidated: faker.datatype.boolean(),
-      phoneNumber: faker.phone.number()
+      phoneNumber: faker.phone.number(),
+      userId:faker.number.int({min:1, max:15})
     }
+
   })
   .build()
