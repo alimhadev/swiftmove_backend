@@ -42,6 +42,8 @@ export default class Gain extends BaseCommand {
 
             subscribe.user.solde += Number(gainAmount)
 
+            console.log(gainAmount)
+
             const increase = await Increase.create({ amount: gainAmount })
 
             await increase.related('subscribe').associate(subscribe)
@@ -53,6 +55,8 @@ export default class Gain extends BaseCommand {
         }else{
 
           subscribe.state = 'ended'
+
+          console.log("ended")
 
           await subscribe.save()
         }

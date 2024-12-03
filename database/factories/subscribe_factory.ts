@@ -11,8 +11,8 @@ export const SubscribeFactory = factory
       fakeMonths: faker.number.int({ min: 1, max: 6 }),
       lastActivity: DateTime.fromJSDate(faker.date.between({ from: '2024-06-01T00:00:00.000Z', to: '2024-12-01T00:00:00.000Z' })),
       state:'active',
-      investmentPlanId:faker.number.int({min:1,max:9})
-
+      investmentPlanId:faker.number.int({min:1,max:9}),
+      userId:faker.number.int({min:1,max:15})
     }
   }).state('inactive', (subscribe) => {
     subscribe.state = 'inactive'

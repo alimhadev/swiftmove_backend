@@ -11,6 +11,6 @@ import scheduler from 'adonisjs-scheduler/services/main'
 // }).everyMinute();
 
 
-scheduler.command("gain").everySeconds(5)
+scheduler.command("gain").everySeconds(1)
 
 // scheduler.command("innactive:account")
