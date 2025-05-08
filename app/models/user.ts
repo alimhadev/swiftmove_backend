@@ -37,7 +37,7 @@ export default class User extends compose(BaseModel, AuthFinder, SoftDeletes) {
   declare email: string
 
   @column()
-  declare createdBy : number
+  declare createdBy : number 
 
   @column()
   declare updatedBy : number
