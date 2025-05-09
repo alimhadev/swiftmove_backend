@@ -12,7 +12,7 @@ export const registerValidation = vine.compile(
       .trim()
       .minLength(3)
       .maxLength(255),
-    email: vine.string().trim().email().unique(async (db,value)=>{
+    email: vine.string().toLowerCase().trim().email().unique(async (db,value)=>{
       const user = await db.from('users').where('email',value).first()
       return !user
     }),

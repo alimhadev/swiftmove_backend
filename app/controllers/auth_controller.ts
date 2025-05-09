@@ -89,8 +89,8 @@ export default class AuthController {
 
     const { email, password } = await request.validateUsing(loginValidation)
 
-    const email_lower = email.toLowerCase()
-    const user = await User.verifyCredentials(email_lower, password)
+    // const email_lower = email.toLowerCase()
+    const user = await User.verifyCredentials(email, password)
 
     if (user.isVerified === false) {
 
